@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'project-dashboard';
+  sidebarOn = true;
+
+  toggleMenu() {
+    this.sidebarOn = !this.sidebarOn;
+  }
 }
