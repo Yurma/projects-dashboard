@@ -1,0 +1,48 @@
+
+.side-select {
+  display: block;
+  font-size: 20px;
+  width: calc(100% - 8px * 2);
+  margin: 8px;
+  border-radius: 2.25px;
+  text-align-last: center;
+  text-align: center;
+}
+
+.side-card {
+  display: block;
+  width: 100%;
+  padding: 16px 0;
+}
+
+.side-btn-group {
+  margin: 22px 0;
+
+  @keyframes card-hover {
+    0%{
+      background: #ffffff;
+    }
+    100%{
+      background: #dbdbdb;
+    }
+  }
+  @keyframes card-active {
+    0%{
+      background: #dbdbdb;
+    }
+    100%{
+      background: #bababa;
+    }
+  }
+
+  .side-btn:hover {
+    background: #dbdbdb;
+    animation: card-hover 200ms ease;
+  }
+
+  .side-btn:active {
+    background: #bababa;
+    animation: card-active 50ms ease;
+  }
+
+}

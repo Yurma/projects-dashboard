@@ -6,16 +6,46 @@
     width: 100vw;
     height: calc(100vh -  57px);
 
-    app-sidebar {
-        display: block;
-        background-color: #ffffff;
-        width: 350px;
-        height: 100%;
-        &.hidden {
-            display: hidden !important;
+    .sidebar {
+      background-color: #ffffff;
+      width: 350px;
+      height: 100%;
+      box-shadow: 3px 2px 3px 0 #8a8a8a;
+
+      @keyframes hide {
+        0% {
+          transform: translate3d(0, 0, 0);
+          visibility: visible;
         }
+        100% {
+          transform: translate3d(-100%, 0, 0);
+          visibility: hidden;
+        }
+      }
+      @keyframes show {
+         0% {
+           transform: translate3d(-100%, 0, 0);
+           visibility: hidden;
+         }
+         100% {
+           transform: translate3d(0, 0, 0);
+           visibility: visible;
+         }
+       }
+
+      &.hidden {
+        visibility: hidden;
+        animation: hide 50ms ease-out;
+        animation-timing-function: linear;
+      }
+      &.show {
+        visibility: visible;
+        animation: show 50ms ease-in;
+        animation-timing-function: linear;
+      }
+
     }
     .content {
     }
-    
+
 }

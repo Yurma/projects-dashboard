@@ -4,7 +4,9 @@
   <div class="header-item--full">Dashboard</div>
 </header>
 <div class="wrapper">
-  <app-sidebar *ngIf="sidebarOn"></app-sidebar>
+  <div class="sidebar">
+    <app-sidebar></app-sidebar>
+  </div>
   <div class="content">
     <router-outlet></router-outlet>
   </div>

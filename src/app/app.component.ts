@@ -10,6 +10,13 @@ export class AppComponent {
   sidebarOn = true;
 
   toggleMenu() {
-    this.sidebarOn = !this.sidebarOn;
+    const sidebar = document.querySelector('.sidebar');
+    if (sidebar.classList.contains('hidden')) {
+      sidebar.classList.remove('hidden');
+      sidebar.classList.add('show');
+    } else {
+      sidebar.classList.add('hidden');
+      sidebar.classList.remove('show');
+    }
   }
 }
