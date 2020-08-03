@@ -28,10 +28,10 @@
   }
   @keyframes card-active {
     0%{
-      background: #dbdbdb;
+      background: radial-gradient(#bababa, #dbdbdb);
     }
     100%{
-      background: #bababa;
+      background: radial-gradient(#bababa, #bababa);
     }
   }
 

@@ -7,16 +7,4 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'project-dashboard';
-  sidebarOn = true;
-
-  toggleMenu() {
-    const sidebar = document.querySelector('.sidebar');
-    if (sidebar.classList.contains('hidden')) {
-      sidebar.classList.remove('hidden');
-      sidebar.classList.add('show');
-    } else {
-      sidebar.classList.add('hidden');
-      sidebar.classList.remove('show');
-    }
-  }
 }
