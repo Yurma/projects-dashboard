@@ -29,16 +29,20 @@ export class AuthService {
         this.currentUser = new BehaviorSubject<firebase.User>(null);
         this.loggedIn.next(false);
       }
+      this.projects = this.fstore.collection<Item>('projects', ref => ref.where('uid', '==', this.currentUser.value.uid)).valueChanges();
+      this.projects.subscribe(res => {
+        this.projectsValue = res;
+      });
     });
   }
   public get userValue(): User {
     console.log(this.currentUser.value);
-    this.projects = this.fstore.collection<Item>('projects').valueChanges();
-    this.projects.subscribe(res => {
-      this.projectsValue = res;
-    });
+
     console.log(this.projectsValue);
     return this.currentUser.value;
+  }
+  public get userItems(): Item[] {
+    return this.projectsValue;
   }
   async login(){
     await firebase

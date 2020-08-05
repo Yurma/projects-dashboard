@@ -37,6 +37,7 @@
       visibility: hidden;
       animation: hide 50ms ease-out;
       animation-timing-function: linear;
+      display: none;
     }
     &.show {
       visibility: visible;

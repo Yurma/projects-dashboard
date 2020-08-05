@@ -18,14 +18,6 @@
 .side-btn-group {
   margin: 22px 0;
 
-  @keyframes card-hover {
-    0%{
-      background: #ffffff;
-    }
-    100%{
-      background: #dbdbdb;
-    }
-  }
   @keyframes card-active {
     0%{
       background: radial-gradient(#bababa, #dbdbdb);
@@ -37,12 +29,18 @@
 
   .side-btn:hover {
     background: #dbdbdb;
-    animation: card-hover 200ms ease;
   }
 
   .side-btn:active {
     background: #bababa;
     animation: card-active 50ms ease;
+  }
+
+  .side-btn {
+    border-radius: 0;
+    &.current {
+      background: #e9e9e9;
+    }
   }
 
 }

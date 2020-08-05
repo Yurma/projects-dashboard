@@ -1,15 +1,16 @@
 <select class="side-select">
   <option>Select</option>
+  <option *ngFor="let project of authServices.userItems" [value]="project.id">{{project.name}}</option>
   <option>New</option>
 </select>
 <div class="side-btn-group">
-  <button class="btn side-btn side-card">
+  <button class="btn side-btn side-card" [class.current]="currentRoute === '/dashboard/info'" routerLink="info">
     Info
   </button>
-  <button class="btn side-btn side-card">
+  <button class="btn side-btn side-card" [class.current]="currentRoute === '/dashboard/boards'" routerLink="boards">
     Boards
   </button>
-  <button class="btn side-btn side-card">
+  <button class="btn side-btn side-card" [class.current]="currentRoute === '/dashboard/settings'" routerLink="settings">
     Settings
   </button>
 </div>

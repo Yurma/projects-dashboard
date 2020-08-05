@@ -13,7 +13,12 @@ const routes: Routes = [
     path: '', children: [
       { path: '', redirectTo: 'login', pathMatch: 'full'},
       { path: 'login', component: LoginComponent},
-      { path: 'dashboard', component: DashboardComponent, canActivate: [AngularFireAuthGuard]}
+      { path: 'dashboard', component: DashboardComponent, canActivate: [AngularFireAuthGuard], children: [
+          { path: '', component: DashboardComponent, pathMatch: 'full' },
+          { path: 'info', component: DashboardComponent },
+          { path: 'boards', component: DashboardComponent },
+          { path: 'settings', component: DashboardComponent }
+          ]}
     ]
   }
 ];
