@@ -11,7 +11,7 @@ import {AngularFireAuthGuard} from '@angular/fire/auth-guard';
 const routes: Routes = [
   {
     path: '', children: [
-      { path: '', redirectTo: 'dashboard', pathMatch: 'full'},
+      { path: '', redirectTo: 'login', pathMatch: 'full'},
       { path: 'login', component: LoginComponent},
       { path: 'dashboard', component: DashboardComponent, canActivate: [AngularFireAuthGuard]}
     ]

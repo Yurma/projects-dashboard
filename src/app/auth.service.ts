@@ -4,6 +4,8 @@ import * as firebase from 'firebase/app';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {User} from 'firebase';
 import {NavigationStart, RouteConfigLoadEnd, Router} from '@angular/router';
+import {AngularFirestore} from '@angular/fire/firestore';
+import Item = firebase.analytics.Item;
 
 
 @Injectable({
@@ -13,8 +15,10 @@ export class AuthService {
   user: Observable<User>;
   currentUser: BehaviorSubject<User>;
   loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  projects: Observable<Item[]>;
+  projectsValue: Item[];
 
-  constructor(public afAuth: AngularFireAuth, public router: Router){
+  constructor(public afAuth: AngularFireAuth, public router: Router, public fstore: AngularFirestore){
     this.afAuth.authState.subscribe(user => {
       if (user) {
         this.currentUser = new BehaviorSubject<User>(user);
@@ -28,6 +32,12 @@ export class AuthService {
     });
   }
   public get userValue(): User {
+    console.log(this.currentUser.value);
+    this.projects = this.fstore.collection<Item>('projects').valueChanges();
+    this.projects.subscribe(res => {
+      this.projectsValue = res;
+    });
+    console.log(this.projectsValue);
     return this.currentUser.value;
   }
   async login(){
@@ -40,6 +50,7 @@ export class AuthService {
     this.afAuth.signOut();
     this.router.navigate(['login']);
   }
+
   get isAuth() {
     return this.loggedIn.asObservable();
   }
