@@ -22,11 +22,6 @@ export class DashboardComponent implements OnInit {
       sidebar.classList.remove('show');
     }
   }
-
-  loggedIn() {
-    return this.authService.user;
-  }
-
   ngOnInit(): void {
   }
 

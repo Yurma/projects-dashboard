@@ -5,12 +5,17 @@ import {AppComponent} from './app.component';
 import {AuthGuard} from './auth.guard';
 import {UserResolve} from './user.resolve';
 import {DashboardComponent} from './dashboard/dashboard.component';
+import {AngularFireAuthGuard} from '@angular/fire/auth-guard';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent, canActivate: [AuthGuard] },
-  { path: 'dashboard', component: DashboardComponent}
+  {
+    path: '', children: [
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full'},
+      { path: 'login', component: LoginComponent},
+      { path: 'dashboard', component: DashboardComponent, canActivate: [AngularFireAuthGuard]}
+    ]
+  }
 ];
 
 @NgModule({
