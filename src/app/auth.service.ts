@@ -16,7 +16,8 @@ export class AuthService {
   currentUser: BehaviorSubject<User>;
   loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   projects: Observable<Item[]>;
-  projectsValue: Item[];
+  projectsValue: BehaviorSubject<Item[]>;
+  selectedProject: number = null;
 
   constructor(public afAuth: AngularFireAuth, public router: Router, public fstore: AngularFirestore){
     this.afAuth.authState.subscribe(user => {
@@ -31,18 +32,20 @@ export class AuthService {
       }
       this.projects = this.fstore.collection<Item>('projects', ref => ref.where('uid', '==', this.currentUser.value.uid)).valueChanges();
       this.projects.subscribe(res => {
-        this.projectsValue = res;
+        this.projectsValue = new BehaviorSubject<Item[]>(res);
       });
     });
   }
+  public get isSelected(): boolean {
+    return !!this.selectedProject;
+  }
   public get userValue(): User {
     console.log(this.currentUser.value);
-
     console.log(this.projectsValue);
     return this.currentUser.value;
   }
   public get userItems(): Item[] {
-    return this.projectsValue;
+    return this.projectsValue.value;
   }
   async login(){
     await firebase
@@ -52,9 +55,9 @@ export class AuthService {
   }
   logout() {
     this.afAuth.signOut();
+    this.selectedProject = null;
     this.router.navigate(['login']);
   }
-
   get isAuth() {
     return this.loggedIn.asObservable();
   }

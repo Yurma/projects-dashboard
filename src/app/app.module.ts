@@ -12,13 +12,23 @@ import { environment } from '../environments/environment';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import {AuthService} from './auth.service';
+import { InfoComponent } from './dashboard/info/info.component';
+import { BoardsComponent } from './dashboard/boards/boards.component';
+import { SettingsComponent } from './dashboard/settings/settings.component';
+import { NewComponent } from './dashboard/new/new.component';
+import { SelectComponent } from './dashboard/select/select.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SidebarComponent,
     LoginComponent,
-    DashboardComponent
+    DashboardComponent,
+    InfoComponent,
+    BoardsComponent,
+    SettingsComponent,
+    NewComponent,
+    SelectComponent
   ],
   imports: [
     BrowserModule,

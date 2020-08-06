@@ -13,6 +13,18 @@ export class SidebarComponent implements OnInit {
   public get currentRoute() {
     return this.router.url;
   }
+  projectChange(e) {
+    if (e.target.value === 'new') {
+      this.authServices.selectedProject = null;
+      this.router.navigate(['/dashboard/new']);
+    } else if (e.target.value === 'select') {
+      this.authServices.selectedProject = null;
+      this.router.navigate(['dashboard']);
+    } else {
+      this.authServices.selectedProject = e.target.value;
+      this.router.navigate(['/dashboard/info']);
+    }
+  }
   ngOnInit(): void {
   }
 

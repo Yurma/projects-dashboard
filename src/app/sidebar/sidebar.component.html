@@ -1,9 +1,9 @@
-<select class="side-select">
-  <option>Select</option>
-  <option *ngFor="let project of authServices.userItems" [value]="project.id">{{project.name}}</option>
-  <option>New</option>
+<select class="side-select" (change)="projectChange($event)">
+  <option value="select">Select</option>
+  <option *ngFor="let project of authServices.userItems; let i = index" [value]="i">{{project.name}}</option>
+  <option value="new">New</option>
 </select>
-<div class="side-btn-group">
+<div class="side-btn-group" *ngIf="authServices.isSelected">
   <button class="btn side-btn side-card" [class.current]="currentRoute === '/dashboard/info'" routerLink="info">
     Info
   </button>
