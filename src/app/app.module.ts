@@ -18,6 +18,10 @@ import { SettingsComponent } from './dashboard/settings/settings.component';
 import { NewComponent } from './dashboard/new/new.component';
 import { SelectComponent } from './dashboard/select/select.component';
 
+import {DragDropModule} from '@angular/cdk/drag-drop';
+import { MarkdownModule } from 'ngx-markdown';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +39,9 @@ import { SelectComponent } from './dashboard/select/select.component';
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    DragDropModule,
+    MarkdownModule.forRoot()
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]

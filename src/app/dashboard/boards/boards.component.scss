@@ -1,0 +1,86 @@
+.list {
+  min-width: 355px;
+  max-width: 355px;
+  background-color: #ffffff;
+
+  .title {
+    text-align: center;
+    font-weight: 600;
+    margin: 2px;
+
+    &:hover {
+      background-color: #f0f0f0;
+      cursor: grab;
+    }
+  }
+}
+
+.cdk-drag-dragging {
+  opacity: 0;
+}
+
+.itemList {
+  min-height: 5px;
+}
+
+.listList {
+  display: inherit;
+}
+
+.newBoard {
+  min-width: 355px;
+  max-width: 355px;
+  max-height: 132px;
+}
+
+.boards-container {
+  overflow-x: auto !important;
+}
+
+.label {
+  margin: 2px;
+}
+
+.item {
+  position: relative;
+  background-color: #ffffff;
+  align-self: flex-start;
+  padding: 2px;
+
+  &:hover {
+    background-color: #f6f6f6;
+    cursor: grab;
+  }
+
+  ul {
+    margin-left: 20px;
+    li {
+      margin-top: 2px;
+      ul {
+        display: inline;
+        list-style-type: none;
+        li {
+          display: inline;
+        }
+      }
+    }
+  }
+
+  textarea {
+    width: 100%;
+    max-width: 100%;
+    min-width: 100%;
+    min-height: 100px;
+    max-height: 150px;
+  }
+
+  .edit {
+    position: absolute;
+    top: 2px;
+    right: 3px;
+
+    &.btn-icon {
+      transform: scale(.8);
+    }
+  }
+}

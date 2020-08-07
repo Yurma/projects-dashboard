@@ -1,1 +1,66 @@
-<p>boards works!</p>
+<div class="boards-container d-flex flex-auto flex-column clearfix position-relative no-wrap">
+  <div cdkDropList class="boards d-flex flex-auto flex-row p-sm-3 position-relative overflow-auto border-black"
+       [cdkDropListData]="lists"
+       cdkDropListOrientation="horizontal"
+       (cdkDropListDropped)="onDropList($event)"
+  >
+    <div cdkDrag [cdkDragData]="list" class="list d-flex flex-auto flex-column overflow-hidden mr-3 v-align-top rounded-2 border ws-normal hide-sm" *ngFor="let list of lists; let id = index">
+      <div class="title">{{list.title}}</div>
+      <div cdkDropList class="itemList"
+           id={{id}}
+           [cdkDropListConnectedTo]="getConnectedList()"
+           [cdkDropListData]="list.items"
+           (cdkDropListDropped)="onDrop($event)"
+      >
+        <div cdkDrag [cdkDragData]="item" class="item flex-auto border m-2 mx-3" *ngFor="let item of list.items; let i = index">
+          <div class="width-full">
+            <div *ngIf="list.itemEdit !== i">
+              <div class="labels">
+                <span class="label" *ngFor="let label of item.labels">{{label}}</span>
+              </div>
+              <div class="content px-2">
+                <p><markdown>{{item.content}}</markdown></p>
+              </div>
+
+              <button class="edit btn btn-icon" (click)="setItemEdit(id, i)"><div class="gg-pen"></div></button>
+            </div>
+            <div *ngIf="list.itemEdit === i">
+              <div class="add flex-auto position-relative m-2 mx-3 ">
+                <button class="btn btn-blue-transparent btn-sm btn-rounder" (click)="cancelItemEdit(id)">Cancel</button>
+              </div>
+              <div class="edit-labels m-2"><input #labels class="width-full" value="{{item.labels}}"></div>
+              <div class="m-2"><textarea #content class="content">{{item.content}}</textarea></div>
+              <div class="m-2"><button class="btn btn-blue btn-squared d-block width-full" (click)="editItem(id, i, labels.value, content.value)">Edit</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="border m-2 mx-3" *ngIf="list.itemAdd">
+        <div class="add flex-auto position-relative m-2 mx-3 ">
+          <button class="btn btn-blue-transparent btn-sm btn-rounder" (click)="cancelItemAdd(id)">Cancel</button>
+        </div>
+        <div class="edititem m-2 mx-3 my-2">
+          <input #labels class="width-full my-2" value="" placeholder="Labels">
+          <textarea #content class="width-full" value='' placeholder="Content"></textarea>
+          <button class="d-block width-full btn btn-blue btn-squared mb-2" (click)="addItem(id, labels.value, content.value)">Submit</button>
+        </div>
+      </div>
+      <div *ngIf="!list.itemAdd">
+        <div class="add flex-auto position-relative m-2 mx-3 ">
+          <button class="width-full py-4 btn btn-blue btn-squared border text-white" (click)="setItemAdd(id)">New item</button>
+        </div>
+      </div>
+    </div>
+    <div class="newBoard border pr-5" *ngIf="listAdd">
+      <div class="mx-2 my-3">
+        <label class="mx-3 my-3" for="title">Title</label>
+        <span class="float-right">
+          <button class="mx-2 mt-n2 btn btn-sm btn-blue-transparent btn-rounder" (click)="listAdd = !listAdd">Cancel</button>
+        </span>
+      </div>
+      <input #title id="title" class="m-2 mx-3 d-block width-full" value="">
+      <button class="m-2 mx-3 my-6 btn btn-blue btn-squared d-block width-full submit" (click)="addList(title.value)">Submit</button>
+    </div>
+    <button *ngIf="!listAdd" class="newBoard btn btn-white btn-squared border" (click)="listAdd = !listAdd">Add new board</button>
+  </div>
+</div>
