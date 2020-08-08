@@ -1,46 +1,52 @@
 
-.side-select {
-  display: block;
-  font-size: 20px;
-  width: calc(100% - 8px * 2);
-  margin: 8px;
-  border-radius: 2.25px;
-  text-align-last: center;
-  text-align: center;
+.sidebar-container {
+  min-width: 350px;
+  width: 350px;
+
+  .side-select {
+    display: block;
+    font-size: 20px;
+    width: calc(100% - 8px * 2);
+    margin: 8px;
+    border-radius: 2.25px;
+    text-align-last: center;
+    text-align: center;
+  }
+
+  .side-card {
+    display: block;
+    width: 100%;
+    padding: 16px 0;
+  }
+
+  .side-btn-group {
+    margin: 22px 0;
+
+    @keyframes card-active {
+      0%{
+        background: radial-gradient(#bababa, #dbdbdb);
+      }
+      100%{
+        background: radial-gradient(#bababa, #bababa);
+      }
+    }
+
+    .side-btn:hover {
+      background: #dbdbdb;
+    }
+
+    .side-btn:active {
+      background: #bababa;
+      animation: card-active 50ms ease;
+    }
+
+    .side-btn {
+      border-radius: 0;
+      &.current {
+        background: #e9e9e9;
+      }
+    }
+
+  }
 }
 
-.side-card {
-  display: block;
-  width: 100%;
-  padding: 16px 0;
-}
-
-.side-btn-group {
-  margin: 22px 0;
-
-  @keyframes card-active {
-    0%{
-      background: radial-gradient(#bababa, #dbdbdb);
-    }
-    100%{
-      background: radial-gradient(#bababa, #bababa);
-    }
-  }
-
-  .side-btn:hover {
-    background: #dbdbdb;
-  }
-
-  .side-btn:active {
-    background: #bababa;
-    animation: card-active 50ms ease;
-  }
-
-  .side-btn {
-    border-radius: 0;
-    &.current {
-      background: #e9e9e9;
-    }
-  }
-
-}

@@ -2,16 +2,16 @@
 
 .wrapper {
   display: flex;
-  flex-direction: row;
+  flex-wrap: wrap;
   width: 100vw;
   height: calc(100vh -  67px);
 
   .sidebar {
-    background-color: #ffffff;
-    width: 350px;
+    flex-basis: 20rem;
+    flex-grow: 1;
     height: 100%;
+    background-color: #ffffff;
     box-shadow: 3px 2px 3px 0 #4e4e4e;
-
     @keyframes hide {
       0% {
         transform: translate3d(0, 0, 0);
@@ -47,6 +47,9 @@
 
   }
   .content {
+    flex-basis: 0;
+    flex-grow: 999;
+    overflow: auto;
   }
 
 }
