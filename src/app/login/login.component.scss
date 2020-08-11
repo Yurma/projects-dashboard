@@ -1,0 +1,13 @@
+:host{
+  position: absolute;
+  width: 100vw;
+  text-align: center;
+  button.login {
+    position: relative;
+    margin: 0 auto;
+    padding: 12px 20px;
+    color: #0045ff;
+    margin-top: calc(50vh - 20px);
+  }
+}
+

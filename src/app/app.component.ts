@@ -9,7 +9,5 @@ import {AuthService} from './auth.service';
 export class AppComponent {
   title = 'project-dashboard';
   constructor(public authService: AuthService) {}
-  logout() {
-    this.authService.logout();
-  }
+  logout = function() {return this.logout(); }.bind(AuthService);
 }
