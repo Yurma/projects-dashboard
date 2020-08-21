@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -41,7 +42,8 @@ import { MarkdownModule } from 'ngx-markdown';
     AngularFirestoreModule,
     AngularFireAuthModule,
     DragDropModule,
-    MarkdownModule.forRoot()
+    MarkdownModule.forRoot(),
+    ReactiveFormsModule
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]

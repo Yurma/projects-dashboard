@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {FormControl, FormGroup} from '@angular/forms';
+import {AuthService} from '../../auth.service';
 
 @Component({
   selector: 'app-new',
@@ -6,10 +8,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./new.component.scss']
 })
 export class NewComponent implements OnInit {
+  newForm = new FormGroup({
+    projectName: new FormControl('')
+  });
 
-  constructor() { }
+  constructor(public authService: AuthService) { }
 
   ngOnInit(): void {
+  }
+
+  onSubmit() {
+    this.authService.newProject(this.newForm.get('projectName').value);
   }
 
 }

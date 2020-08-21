@@ -1,1 +1,7 @@
-<p>new works!</p>
+<form [formGroup]="newForm" (ngSubmit)="onSubmit()">
+  <label>
+    Project Name:
+    <input type="text" formControlName="projectName" />
+  </label>
+  <input type="submit" value="Create" />
+</form>

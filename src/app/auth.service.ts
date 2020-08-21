@@ -48,6 +48,9 @@ export class AuthService {
     this.selectedProject = null;
     this.router.navigate(['login']);
   }
+  newProject(name) {
+    this.fstore.collection('users').doc<Item[]>(this.currentUser.value.uid).collection('projects').add({"name": name});
+  }
   get isAuth() {
     return this.loggedIn.asObservable();
   }
