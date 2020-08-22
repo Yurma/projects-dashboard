@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import {Task} from 'protractor/built/taskScheduler';
+import {AuthService} from '../../auth.service';
 
 @Component({
   selector: 'app-boards',
@@ -71,6 +72,10 @@ export class BoardsComponent implements OnInit {
       ]
     }
   ];
+
+  constructor(private authService: AuthService) {
+    this.lists = authService.boardsArray;
+  }
 
   getConnectedList(): any[] {
     return this.lists.map((x, id) => `${id}`);

@@ -17,7 +17,7 @@ export class AuthService {
   currentUser: BehaviorSubject<User>;
   loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   projects: Observable<Item[]>;
-  projectsValue: BehaviorSubject<Item[]>;
+  projectsValue: BehaviorSubject<any[]>;
   selectedProject: number = null;
 
   constructor(public afAuth: AngularFireAuth, public router: Router, public fstore: AngularFirestore){
@@ -36,6 +36,9 @@ export class AuthService {
       return this.projectsValue.value;
     }
     return [];
+  }
+  public get boardsArray(): any[] {
+    return this.projectsValue.value[this.selectedProject].boards || [];
   }
   async login(){
     await firebase
