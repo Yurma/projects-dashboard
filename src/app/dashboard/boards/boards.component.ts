@@ -112,10 +112,12 @@ export class BoardsComponent implements OnInit {
     } else {
       transferArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex);
     }
+    this.authService.saveBoards(this.lists);
   }
 
   onDropList(event: CdkDragDrop<Task[]>) {
     moveItemInArray(this.lists, event.previousIndex, event.currentIndex);
+    this.authService.saveBoards(this.lists);
   }
 
   stringToList(labels: string){
@@ -129,6 +131,7 @@ export class BoardsComponent implements OnInit {
     item.content = content;
     this.lists[listId].items[itemId] = item;
     this.lists[listId].itemEdit = null;
+    this.authService.saveBoards(this.lists);
   }
 
   addItem(listId: number, labels: any, content: string) {
@@ -140,6 +143,7 @@ export class BoardsComponent implements OnInit {
     );
 
     this.lists[listId].itemAdd = false;
+    this.authService.saveBoards(this.lists);
   }
 
   addList(title: string) {
@@ -154,6 +158,7 @@ export class BoardsComponent implements OnInit {
     );
 
     this.listAdd = false;
+    this.authService.saveBoards(this.lists);
   }
 
 

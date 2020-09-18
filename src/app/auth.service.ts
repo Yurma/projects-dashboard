@@ -7,6 +7,7 @@ import {NavigationStart, RouteConfigLoadEnd, Router} from '@angular/router';
 import {AngularFirestore, AngularFirestoreDocument} from '@angular/fire/firestore';
 import Item = firebase.analytics.Item;
 import {AngularFireDatabase} from '@angular/fire/database';
+import {K} from '@angular/cdk/keycodes';
 
 
 @Injectable({
@@ -19,6 +20,7 @@ export class AuthService {
   projects: Observable<Item[]>;
   projectsValue: BehaviorSubject<any[]>;
   selectedProject: number = null;
+  selectedId: string = null;
 
   constructor(public afAuth: AngularFireAuth, public router: Router, public fstore: AngularFirestore){
     this.updateUserData();
@@ -29,6 +31,7 @@ export class AuthService {
   public get userValue(): User {
     console.log(this.currentUser.value);
     console.log(this.projectsValue.value);
+    console.log(this.selectedId);
     return this.currentUser.value;
   }
   public get userItems(): Item[] {
@@ -46,13 +49,21 @@ export class AuthService {
         .signInWithPopup(new firebase.auth.GoogleAuthProvider());
     return this.updateUserData();
   }
+  selectProject(value) {
+    this.selectedProject = value;
+    this.selectedId = this.projectsValue.value[value].id;
+  }
   logout() {
     this.afAuth.signOut();
     this.selectedProject = null;
+    this.selectedId = null;
     this.router.navigate(['login']);
   }
   newProject(name) {
     this.fstore.collection('users').doc<Item[]>(this.currentUser.value.uid).collection('projects').add({"name": name});
+  }
+  saveBoards(value) {
+    this.fstore.collection('users').doc<Item[]>(this.currentUser.value.uid).collection('projects').doc(this.selectedId).update({"boards": value});
   }
   get isAuth() {
     return this.loggedIn.asObservable();
@@ -69,8 +80,9 @@ export class AuthService {
         this.currentUser = new BehaviorSubject<firebase.User>(null);
         this.loggedIn.next(false);
       }
-      this.projects = this.fstore.collection('users').doc<Item[]>(this.currentUser.value.uid).collection('projects').valueChanges();
+      this.projects = this.fstore.collection('users').doc<Item[]>(this.currentUser.value.uid).collection('projects').valueChanges({idField: 'id'});
       this.projects.subscribe(res => {
+        console.log(res)
         this.projectsValue = new BehaviorSubject<Item[]>(res);
       });
     });

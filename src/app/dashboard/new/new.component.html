@@ -1,7 +1,15 @@
 <form [formGroup]="newForm" (ngSubmit)="onSubmit()">
-  <label>
-    Project Name:
-    <input type="text" formControlName="projectName" />
-  </label>
+  <div>
+    <label>
+      Project Name:
+      <input type="text" formControlName="projectName" />
+    </label>
+  </div>
+  <div>
+    <label>
+      Description:
+      <textarea formControlName="projectDescription"></textarea>
+    </label>
+  </div>
   <input type="submit" value="Create" />
 </form>

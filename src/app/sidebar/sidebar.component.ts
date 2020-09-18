@@ -15,13 +15,13 @@ export class SidebarComponent implements OnInit {
   }
   projectChange(e) {
     if (e.target.value === 'new') {
-      this.authServices.selectedProject = null;
+      this.authServices.selectProject(null);
       this.router.navigate(['/dashboard/new']);
     } else if (e.target.value === 'select') {
-      this.authServices.selectedProject = null;
+      this.authServices.selectProject(null);
       this.router.navigate(['dashboard']);
     } else {
-      this.authServices.selectedProject = e.target.value;
+      this.authServices.selectProject(e.target.value);
       this.router.navigate(['/dashboard/info']);
     }
   }
