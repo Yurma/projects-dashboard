@@ -51,7 +51,8 @@ export class AuthService {
   }
   selectProject(value) {
     this.selectedProject = value;
-    this.selectedId = this.projectsValue.value[value].id;
+    if (value) this.selectedId = this.projectsValue.value[value].id;
+    else this.selectedId = null;
   }
   logout() {
     this.afAuth.signOut();
@@ -59,11 +60,19 @@ export class AuthService {
     this.selectedId = null;
     this.router.navigate(['login']);
   }
-  newProject(name) {
-    this.fstore.collection('users').doc<Item[]>(this.currentUser.value.uid).collection('projects').add({"name": name});
+  newProject(form) {
+    const name = form.get('projectName').value;
+    const description = form.get('projectDescription').value;
+    this.fstore.collection('users').doc<Item[]>(this.currentUser.value.uid).collection('projects').add({"name": name, "description": description});
   }
   saveBoards(value) {
     this.fstore.collection('users').doc<Item[]>(this.currentUser.value.uid).collection('projects').doc(this.selectedId).update({"boards": value});
+  }
+  editProject(form) {
+    const name = form.get('projectName').value;
+    const description = form.get('projectDescription').value;
+    this.fstore.collection('users').doc<Item[]>(this.currentUser.value.uid).collection('projects').doc(this.selectedId).update({"name": name, "description": description});
+    console.log(this.selectedId)
   }
   get isAuth() {
     return this.loggedIn.asObservable();
@@ -82,7 +91,6 @@ export class AuthService {
       }
       this.projects = this.fstore.collection('users').doc<Item[]>(this.currentUser.value.uid).collection('projects').valueChanges({idField: 'id'});
       this.projects.subscribe(res => {
-        console.log(res)
         this.projectsValue = new BehaviorSubject<Item[]>(res);
       });
     });

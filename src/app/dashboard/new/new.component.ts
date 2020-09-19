@@ -9,7 +9,8 @@ import {AuthService} from '../../auth.service';
 })
 export class NewComponent implements OnInit {
   newForm = new FormGroup({
-    projectName: new FormControl('')
+    projectName: new FormControl(''),
+    projectDescription: new FormControl('')
   });
 
   constructor(public authService: AuthService) { }
@@ -18,7 +19,7 @@ export class NewComponent implements OnInit {
   }
 
   onSubmit() {
-    this.authService.newProject(this.newForm.get('projectName').value);
+    this.authService.newProject(this.newForm);
   }
 
 }

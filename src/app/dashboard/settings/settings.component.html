@@ -1,1 +1,15 @@
-<p>settings works!</p>
+<form [formGroup]="newForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label>
+      Project Name:
+      <input type="text" formControlName="projectName" />
+    </label>
+  </div>
+  <div>
+    <label>
+      Description:
+      <textarea formControlName="projectDescription"></textarea>
+    </label>
+  </div>
+  <input type="submit" value="Edit" />
+</form>

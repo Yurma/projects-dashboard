@@ -14,6 +14,7 @@ export class SidebarComponent implements OnInit {
     return this.router.url;
   }
   projectChange(e) {
+    console.log(e.target.value === 'new')
     if (e.target.value === 'new') {
       this.authServices.selectProject(null);
       this.router.navigate(['/dashboard/new']);

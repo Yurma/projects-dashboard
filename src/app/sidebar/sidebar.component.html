@@ -1,7 +1,7 @@
 <div class="sidebar-container">
-  <select class="side-select" (change)="projectChange($event)">
+  <select class="side-select" (change)="projectChange($event)" [value]="authServices.selectedProject">
     <option value="select">Select</option>
-    <option *ngFor="let project of authServices.userItems; let i = index" [value]="i">{{project.name}}</option>
+    <option *ngFor="let project of authServices.projectsValue.value; let i = index" [value]="i" [selected]="authServices.selectedProject == i">{{project.name}}</option>
     <option value="new">New</option>
   </select>
   <div class="side-btn-group" *ngIf="authServices.isSelected">
