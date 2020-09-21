@@ -1,6 +1,6 @@
 <div class="sidebar-container">
   <select class="side-select" (change)="projectChange($event)" [value]="authServices.selectedProject">
-    <option value="select">Select</option>
+    <option *ngIf="!authServices.selectedId" value="select">Select</option>
     <option *ngFor="let project of authServices.projectsValue.value; let i = index" [value]="i" [selected]="authServices.selectedProject == i">{{project.name}}</option>
     <option value="new">New</option>
   </select>
@@ -10,6 +10,9 @@
     </button>
     <button class="btn side-btn side-card" [class.current]="currentRoute === '/dashboard/boards'" routerLink="boards">
       Boards
+    </button>
+    <button class="btn side-btn side-card" [class.current]="currentRoute === '/dashboard/devlogs'" routerLink="devlogs">
+      Devlogs
     </button>
     <button class="btn side-btn side-card" [class.current]="currentRoute === '/dashboard/settings'" routerLink="settings">
       Settings

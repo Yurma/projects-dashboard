@@ -13,6 +13,7 @@ import {NewComponent} from './dashboard/new/new.component';
 import {SelectedGuard} from './guards/selected.guard';
 import {SelectComponent} from './dashboard/select/select.component';
 import {NotSelectedGuard} from './guards/not-selected.guard';
+import {DevlogsComponent} from './dashboard/devlogs/devlogs.component';
 
 
 const routes: Routes = [
@@ -25,6 +26,7 @@ const routes: Routes = [
           { path: 'info', component: InfoComponent, canActivate: [SelectedGuard] },
           { path: 'boards', component: BoardsComponent, canActivate: [SelectedGuard] },
           { path: 'settings', component: SettingsComponent, canActivate: [SelectedGuard] },
+          { path: 'devlogs', component: DevlogsComponent, canActivate: [SelectedGuard] },
           { path: 'new', component: NewComponent }
           ]}
     ]

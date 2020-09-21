@@ -21,6 +21,7 @@ import { SelectComponent } from './dashboard/select/select.component';
 
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import { MarkdownModule } from 'ngx-markdown';
+import { DevlogsComponent } from './dashboard/devlogs/devlogs.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { MarkdownModule } from 'ngx-markdown';
     BoardsComponent,
     SettingsComponent,
     NewComponent,
-    SelectComponent
+    SelectComponent,
+    DevlogsComponent
   ],
   imports: [
     BrowserModule,
