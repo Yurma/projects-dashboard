@@ -13,6 +13,14 @@
     text-align: center;
   }
 
+  .new-btn {
+    color: #ffffff;
+    background: transparent;
+    &:hover {
+      background: #494949;
+    }
+  }
+
   .side-card {
     display: block;
     width: 100%;

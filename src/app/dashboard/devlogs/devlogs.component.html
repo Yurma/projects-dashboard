@@ -1,20 +1,21 @@
+<div class="h1 pg-title my-2">Logs</div>
 <div class="log my-1" *ngFor="let log of authServices.logsValue.value">
     <div class="title h1">{{log.title}}</div>
     <div class="date f6">posted {{log.date.toDate() | date: 'MM/dd/yyyy'}}</div>
     <div class="description f4">{{log.description}}</div>
 </div>
 <hr>
-<form [formGroup]="newForm" (ngSubmit)="onSubmit()">
+<form class="col-8" [formGroup]="newForm" (ngSubmit)="onSubmit()">
   <div>
     <label>
       Title:
-      <input type="text" formControlName="logTitle" />
+      <input class="width-full f4" type="text" formControlName="logTitle" />
     </label>
   </div>
   <div>
     <label>
       Description:
-      <textarea formControlName="logDescription"></textarea>
+      <textarea class="width-full f4" formControlName="logDescription"></textarea>
     </label>
   </div>
   <input type="submit" value="Submit" />

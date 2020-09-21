@@ -1,14 +1,15 @@
-<form [formGroup]="newForm" (ngSubmit)="onSubmit()">
+<div class="h1 pg-title my-2">Settings</div>
+<form class="col-8" [formGroup]="newForm" (ngSubmit)="onSubmit()">
   <div>
     <label>
       Project Name:
-      <input type="text" formControlName="projectName" />
+      <input class="width-full f4" type="text" formControlName="projectName" />
     </label>
   </div>
   <div>
     <label>
       Description:
-      <textarea formControlName="projectDescription"></textarea>
+      <textarea class="width-full f4" formControlName="projectDescription"></textarea>
     </label>
   </div>
   <input type="submit" value="Edit" />

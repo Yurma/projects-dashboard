@@ -13,8 +13,12 @@ export class SidebarComponent implements OnInit {
   public get currentRoute() {
     return this.router.url;
   }
+
+  newClick() {
+    this.authServices.selectProject(null);
+    this.router.navigate(['/dashboard/new']);
+  }
   projectChange(e) {
-    console.log(e.target.value === 'new')
     if (e.target.value === 'new') {
       this.authServices.selectProject(null);
       this.router.navigate(['/dashboard/new']);
