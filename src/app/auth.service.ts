@@ -25,7 +25,7 @@ export class AuthService {
 
   selectedKey: number = null;
   selectedId: string = null;
-  selectedProject: { name: string, description: string } = { name: '', description: '' };
+  selectedProject: {} = { name: '', description: '' };
 
   logs: Observable<Item[]>;
   logsValue: BehaviorSubject<any[]>;
