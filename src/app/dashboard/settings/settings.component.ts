@@ -27,6 +27,18 @@ export class SettingsComponent implements OnInit {
     this.authService.editProject(this.newForm);
   }
 
+  deleteClick() {
+    const input = prompt(`Enter "${this.projectName}" to delete project.`);
+    if (input === this.projectName){
+      this.authService.removeProject();
+    } else {
+      if (input === null) return;
+      if (confirm('You entered wrong project name, please try again')) {
+        this.deleteClick();
+      }
+    }
+  }
+
   ngOnInit(): void {
   }
 

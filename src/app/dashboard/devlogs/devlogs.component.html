@@ -1,5 +1,6 @@
 <div class="h1 pg-title my-2">Logs</div>
 <div class="log my-1" *ngFor="let log of authServices.logsValue.value">
+    <button class="btn btn-link float-right" (click)="removeClick(log.id)">Remove Log</button>
     <div class="title h1">{{log.title}}</div>
     <div class="date f6">posted {{log.date.toDate() | date: 'MM/dd/yyyy'}}</div>
     <div class="description f4">{{log.description}}</div>

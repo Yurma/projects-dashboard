@@ -57,10 +57,13 @@ export class AuthService {
     return this.updateUserData();
   }
   loadLogs() {
-    this.logs = this.fstore.collection('users').doc<Item[]>(this.currentUser.value.uid).collection('projects').doc(this.selectedId).collection('logs').valueChanges();
+    this.logs = this.fstore.collection('users').doc<Item[]>(this.currentUser.value.uid).collection('projects').doc(this.selectedId).collection('logs').valueChanges({idField: 'id'});
     this.logs.subscribe(res => {
       this.logsValue = new BehaviorSubject<Item[]>(res);
     });
+  }
+  removeLog(id) {
+    this.fstore.collection('users').doc<Item[]>(this.currentUser.value.uid).collection('projects').doc(this.selectedId).collection('logs').doc(id).delete();
   }
   selectProject(value) {
     this.selectedProject = value;
@@ -101,7 +104,10 @@ export class AuthService {
       description,
       date
     });
-
+  }
+  removeProject() {
+    this.fstore.collection('users').doc<Item[]>(this.currentUser.value.uid).collection('projects').doc(this.selectedId).delete();
+    this.selectProject(null);
   }
   get isAuth() {
     return this.loggedIn.asObservable();

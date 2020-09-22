@@ -22,4 +22,10 @@ export class DevlogsComponent implements OnInit {
     this.authServices.newLog(this.newForm);
   }
 
+  removeClick(id) {
+    if (confirm('Are you sure you want to remove log')) {
+      this.authServices.removeLog(id);
+    }
+  }
+
 }
