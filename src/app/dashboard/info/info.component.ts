@@ -11,11 +11,17 @@ export class InfoComponent implements OnInit {
   constructor(public authService: AuthService) { }
 
   get projectName() {
-    return this.authService.projectsValue.value[this.authService.selectedProject].name || "";
+    if (this.authService.selectedProject){
+      return this.authService.selectedProject.name || '';
+    }
+    return '';
   }
 
   get projectDescription() {
-    return this.authService.projectsValue.value[this.authService.selectedProject].description || "";
+    if (this.authService.selectedProject){
+      return this.authService.selectedProject.description || '';
+    }
+    return '';
   }
 
   ngOnInit(): void {

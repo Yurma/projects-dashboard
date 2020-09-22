@@ -1,20 +1,20 @@
 <div class="sidebar-container">
   <button class="btn new-btn btn-squared side-card" (click)="newClick()">New</button>
-  <select class="side-select" (change)="projectChange($event)" [value]="authServices.selectedProject">
+  <select class="side-select" (change)="projectChange($event)" [value]="authServices.selectedKey">
     <option *ngIf="!authServices.selectedId" value="select">-- SELECT --</option>
-    <option *ngFor="let project of authServices.projectsValue.value; let i = index" [value]="i" [selected]="authServices.selectedProject == i">{{project.name}}</option>
+    <option *ngFor="let project of authServices.projectsValue; let i = index" [value]="i" [selected]="authServices.selectedKey == i">{{project.name}}</option>
   </select>
   <div class="side-btn-group" *ngIf="authServices.isSelected">
-    <button class="btn side-btn side-card" [class.current]="currentRoute === '/dashboard/info'" routerLink="info">
+    <button class="btn side-btn side-card" [class.current]="currentRoute === '/dashboard/info'" [routerLink]="['info']" queryParamsHandling="merge">
       Info
     </button>
-    <button class="btn side-btn side-card" [class.current]="currentRoute === '/dashboard/boards'" routerLink="boards">
+    <button class="btn side-btn side-card" [class.current]="currentRoute === '/dashboard/boards'" [routerLink]="['boards']" queryParamsHandling="merge">
       Boards
     </button>
-    <button class="btn side-btn side-card" [class.current]="currentRoute === '/dashboard/devlogs'" routerLink="devlogs">
+    <button class="btn side-btn side-card" [class.current]="currentRoute === '/dashboard/devlogs'" [routerLink]="['devlogs']" queryParamsHandling="merge">
       Devlogs
     </button>
-    <button class="btn side-btn side-card" [class.current]="currentRoute === '/dashboard/settings'" routerLink="settings">
+    <button class="btn side-btn side-card" [class.current]="currentRoute === '/dashboard/settings'" [routerLink]="['settings']" queryParamsHandling="merge">
       Settings
     </button>
   </div>

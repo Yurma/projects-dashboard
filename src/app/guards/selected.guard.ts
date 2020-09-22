@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router} from '@angular/router';
+import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router, ActivatedRoute} from '@angular/router';
 import { Observable } from 'rxjs';
 import {AuthService} from '../auth.service';
 
@@ -7,7 +7,7 @@ import {AuthService} from '../auth.service';
   providedIn: 'root'
 })
 export class SelectedGuard implements CanActivate {
-  constructor(public authService: AuthService, public router: Router) {
+  constructor(public authService: AuthService, public router: Router, public route: ActivatedRoute) {
   }
   canActivate(
     next: ActivatedRouteSnapshot,

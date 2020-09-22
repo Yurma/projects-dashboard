@@ -3,11 +3,12 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import * as firebase from 'firebase/app';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {firestore, User} from 'firebase';
-import {NavigationStart, RouteConfigLoadEnd, Router} from '@angular/router';
+import {ActivatedRoute, NavigationStart, RouteConfigLoadEnd, Router} from '@angular/router';
 import {AngularFirestore, AngularFirestoreDocument} from '@angular/fire/firestore';
 import Item = firebase.analytics.Item;
 import {AngularFireDatabase} from '@angular/fire/database';
 import {K} from '@angular/cdk/keycodes';
+import {type} from 'os';
 
 
 @Injectable({
@@ -20,35 +21,37 @@ export class AuthService {
   loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   projects: Observable<Item[]>;
-  projectsValue: BehaviorSubject<any[]>;
+  projectsValue: any[];
 
-  selectedProject: number = null;
+  selectedKey: number = null;
   selectedId: string = null;
+  selectedProject: { name: string, description: string } = { name: '', description: '' };
 
   logs: Observable<Item[]>;
   logsValue: BehaviorSubject<any[]>;
 
-  constructor(public afAuth: AngularFireAuth, public router: Router, public fstore: AngularFirestore){
+  constructor(public afAuth: AngularFireAuth, public router: Router, public fstore: AngularFirestore, public route: ActivatedRoute){
     this.updateUserData();
   }
   public get isSelected(): boolean {
-    return !!this.selectedProject;
+    return this.selectedKey !== null;
   }
   public get userValue(): User {
     console.log(this.currentUser.value);
-    console.log(this.projectsValue.value);
+    console.log(this.projectsValue);
     console.log(this.selectedId);
     console.log(this.logsValue.value);
+    console.log(this.selectedProject);
     return this.currentUser.value;
   }
   public get userItems(): Item[] {
     if (this.projectsValue) {
-      return this.projectsValue.value;
+      return this.projectsValue;
     }
     return [];
   }
   public get boardsArray(): any[] {
-    return this.projectsValue.value[this.selectedProject].boards || [];
+    return this.projectsValue[this.selectedKey].boards || [];
   }
   async login(){
     await firebase
@@ -65,33 +68,46 @@ export class AuthService {
   removeLog(id) {
     this.fstore.collection('users').doc<Item[]>(this.currentUser.value.uid).collection('projects').doc(this.selectedId).collection('logs').doc(id).delete();
   }
+  loadProject() {
+    this.fstore.collection('users').doc<Item[]>(this.currentUser.value.uid).collection('projects').doc(this.selectedId).valueChanges()
+      .subscribe(res => {
+        this.selectedProject = (new BehaviorSubject<Item[]>(res)).value;
+      });
+  }
   selectProject(value) {
-    this.selectedProject = value;
-    if (value) {
-      this.selectedId = this.projectsValue.value[value].id;
+    this.selectedKey = value;
+    if (value !== null) {
+      this.selectedId = this.projectsValue[value].id;
+      this.loadProject();
       this.loadLogs();
+      this.router.navigate(['/dashboard/info'], {queryParams: {project: this.selectedId}});
     } else {
       this.selectedId = null;
     }
+    console.log(this.selectedKey, this.selectedId, this.isSelected);
   }
   logout() {
     this.afAuth.signOut();
-    this.selectedProject = null;
+    this.selectedKey = null;
     this.selectedId = null;
     this.router.navigate(['login']);
   }
   newProject(form) {
     const name = form.get('projectName').value;
     const description = form.get('projectDescription').value;
-    this.fstore.collection('users').doc<Item[]>(this.currentUser.value.uid).collection('projects').add({"name": name, "description": description});
+    this.fstore.collection('users').doc<Item[]>(this.currentUser.value.uid).collection('projects').add({name, description})
+                .then((docRef) => {
+                  this.selectProject(this.projectsValue.map(proj => ({id: proj.id})).findIndex(obj => obj.id === docRef.id));
+                  this.router.navigate(['/dashboard/info'], {queryParams: {project: docRef.id}});
+                });
   }
   saveBoards(value) {
-    this.fstore.collection('users').doc<Item[]>(this.currentUser.value.uid).collection('projects').doc(this.selectedId).update({"boards": value});
+    this.fstore.collection('users').doc<Item[]>(this.currentUser.value.uid).collection('projects').doc(this.selectedId).update({boards: value});
   }
   editProject(form) {
     const name = form.get('projectName').value;
     const description = form.get('projectDescription').value;
-    this.fstore.collection('users').doc<Item[]>(this.currentUser.value.uid).collection('projects').doc(this.selectedId).update({"name": name, "description": description});
+    this.fstore.collection('users').doc<Item[]>(this.currentUser.value.uid).collection('projects').doc(this.selectedId).update({name, description});
     console.log(this.selectedId)
   }
   newLog(form) {
@@ -108,6 +124,7 @@ export class AuthService {
   removeProject() {
     this.fstore.collection('users').doc<Item[]>(this.currentUser.value.uid).collection('projects').doc(this.selectedId).delete();
     this.selectProject(null);
+    this.router.navigate(['dashboard'], { queryParamsHandling: 'preserve' });
   }
   get isAuth() {
     return this.loggedIn.asObservable();
@@ -126,7 +143,7 @@ export class AuthService {
       }
       this.projects = this.fstore.collection('users').doc<Item[]>(this.currentUser.value.uid).collection('projects').valueChanges({idField: 'id'});
       this.projects.subscribe(res => {
-        this.projectsValue = new BehaviorSubject<Item[]>(res);
+        this.projectsValue = (new BehaviorSubject<Item[]>(res)).value.map(proj => ({id: proj.id, name: proj.name}));
       });
     });
     return;

@@ -27,7 +27,6 @@ export class SidebarComponent implements OnInit {
       this.router.navigate(['dashboard']);
     } else {
       this.authServices.selectProject(e.target.value);
-      this.router.navigate(['/dashboard/info']);
     }
   }
   ngOnInit(): void {

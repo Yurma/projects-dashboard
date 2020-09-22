@@ -11,11 +11,11 @@ export class SettingsComponent implements OnInit {
   constructor(public authService: AuthService) { }
 
   get projectName() {
-    return this.authService.projectsValue.value[this.authService.selectedProject].name || '';
+    return this.authService.selectedProject.name || '';
   }
 
   get projectDescription() {
-    return this.authService.projectsValue.value[this.authService.selectedProject].description || '';
+    return this.authService.selectedProject.description || '';
   }
 
   newForm = new FormGroup({
