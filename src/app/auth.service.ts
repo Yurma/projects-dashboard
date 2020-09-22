@@ -71,7 +71,7 @@ export class AuthService {
   loadProject() {
     this.fstore.collection('users').doc<Item[]>(this.currentUser.value.uid).collection('projects').doc(this.selectedId).valueChanges()
       .subscribe(res => {
-        this.selectedProject = (new BehaviorSubject<Item[]>(res)).value;
+        this.selectedProject = (new BehaviorSubject(res)).value || { name: '', description: '' };
       });
   }
   selectProject(value) {
