@@ -3,7 +3,6 @@
   <div class="header-item--full">Dashboard</div>
   <div *ngIf="authService.isAuth">
     <button (click)="authService.logout()" class="header-item btn btn-link">Logout</button>
-    <button (click)="authService.userValue" class="header-item btn btn-link">Get Value</button>
   </div>
 </header>
 <div class="wrapper">

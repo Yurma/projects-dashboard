@@ -5,16 +5,16 @@
     <option *ngFor="let project of authServices.projectsValue; let i = index" [value]="i" [selected]="authServices.selectedKey == i">{{project.name}}</option>
   </select>
   <div class="side-btn-group" *ngIf="authServices.isSelected">
-    <button class="btn side-btn side-card" [class.current]="currentRoute === '/dashboard/info'" [routerLink]="['info']" queryParamsHandling="merge">
+    <button class="btn side-btn side-card" [routerLink]="['info']" routerLinkActive="current" queryParamsHandling="merge">
       Info
     </button>
-    <button class="btn side-btn side-card" [class.current]="currentRoute === '/dashboard/boards'" [routerLink]="['boards']" queryParamsHandling="merge">
+    <button class="btn side-btn side-card" [routerLink]="['boards']" routerLinkActive="current" queryParamsHandling="merge">
       Boards
     </button>
-    <button class="btn side-btn side-card" [class.current]="currentRoute === '/dashboard/devlogs'" [routerLink]="['devlogs']" queryParamsHandling="merge">
+    <button class="btn side-btn side-card" [routerLink]="['devlogs']" routerLinkActive="current" queryParamsHandling="merge">
       Devlogs
     </button>
-    <button class="btn side-btn side-card" [class.current]="currentRoute === '/dashboard/settings'" [routerLink]="['settings']" queryParamsHandling="merge">
+    <button class="btn side-btn side-card" [routerLink]="['settings']" routerLinkActive="current" queryParamsHandling="merge">
       Settings
     </button>
   </div>

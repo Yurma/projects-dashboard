@@ -20,7 +20,7 @@ export class AuthService {
 
   loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  projects: Observable<Item[]>;
+  projects: Observable<any[]>;
   projectsValue: any[];
 
   selectedKey: number = null;
@@ -35,14 +35,6 @@ export class AuthService {
   }
   public get isSelected(): boolean {
     return this.selectedKey !== null;
-  }
-  public get userValue(): User {
-    console.log(this.currentUser.value);
-    console.log(this.projectsValue);
-    console.log(this.selectedId);
-    console.log(this.logsValue.value);
-    console.log(this.selectedProject);
-    return this.currentUser.value;
   }
   public get userItems(): Item[] {
     if (this.projectsValue) {
@@ -71,20 +63,20 @@ export class AuthService {
   loadProject() {
     this.fstore.collection('users').doc<Item[]>(this.currentUser.value.uid).collection('projects').doc(this.selectedId).valueChanges()
       .subscribe(res => {
-        this.selectedProject = (new BehaviorSubject(res)).value || { name: '', description: '' };
+        this.selectedProject = (new BehaviorSubject(res)).value;
       });
   }
   selectProject(value) {
-    this.selectedKey = value;
-    if (value !== null) {
+    if (value !== null && this.projectsValue[value]) {
+      this.selectedKey = value;
       this.selectedId = this.projectsValue[value].id;
       this.loadProject();
       this.loadLogs();
       this.router.navigate(['/dashboard/info'], {queryParams: {project: this.selectedId}});
     } else {
+      this.selectedKey = null;
       this.selectedId = null;
     }
-    console.log(this.selectedKey, this.selectedId, this.isSelected);
   }
   logout() {
     this.afAuth.signOut();
@@ -98,7 +90,7 @@ export class AuthService {
     this.fstore.collection('users').doc<Item[]>(this.currentUser.value.uid).collection('projects').add({name, description})
                 .then((docRef) => {
                   this.selectProject(this.projectsValue.map(proj => ({id: proj.id})).findIndex(obj => obj.id === docRef.id));
-                  this.router.navigate(['/dashboard/info'], {queryParams: {project: docRef.id}});
+                  //this.router.navigate(['/dashboard/info'], {queryParams: {project: docRef.id}});
                 });
   }
   saveBoards(value) {
@@ -108,7 +100,6 @@ export class AuthService {
     const name = form.get('projectName').value;
     const description = form.get('projectDescription').value;
     this.fstore.collection('users').doc<Item[]>(this.currentUser.value.uid).collection('projects').doc(this.selectedId).update({name, description});
-    console.log(this.selectedId)
   }
   newLog(form) {
     const title = form.get('logTitle').value;
@@ -143,7 +134,8 @@ export class AuthService {
       }
       this.projects = this.fstore.collection('users').doc<Item[]>(this.currentUser.value.uid).collection('projects').valueChanges({idField: 'id'});
       this.projects.subscribe(res => {
-        this.projectsValue = (new BehaviorSubject<Item[]>(res)).value.map(proj => ({id: proj.id, name: proj.name}));
+        this.projectsValue = (new BehaviorSubject(res)).value.map(proj => ({id: proj.id, name: proj.name, boards: proj.boards}));
+        if (this.selectedKey === null) { this.selectProject(0); }
       });
     });
     return;
