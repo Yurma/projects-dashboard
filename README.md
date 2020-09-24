@@ -4,6 +4,8 @@ Dashboard for easier project organization and planning created with Angular and 
 
 It currently features project information, devlog and boards.
 
+### [Live](https://romantic-galileo-9c582d.netlify.app/)
+
 Contribute
 ----------
 
