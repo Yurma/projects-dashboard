@@ -1,5 +1,7 @@
 <div class="h1 pg-title my-2">Info</div>
-<div>
+<div class="mx-4">
   <div class="h1">{{projectName}}</div>
-  <div class="f4">{{projectDescription}}</div>
+  <div class="f4 mb-5"><span>{{projectDescription}}</span></div>
+  <div class="f4" *ngIf="projectRepo"><span class="text-bold">Repository: </span> <a [href]=[projectRepo]>Repo</a></div>
+  <div class="f4" *ngIf="projectWebsite"><span class="text-bold">Website: </span> <a [href]=[projectWebsite]>{{projectWebsite}}</a></div>
 </div>

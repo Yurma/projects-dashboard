@@ -87,7 +87,9 @@ export class AuthService {
   newProject(form) {
     const name = form.get('projectName').value;
     const description = form.get('projectDescription').value;
-    this.fstore.collection('users').doc<Item[]>(this.currentUser.value.uid).collection('projects').add({name, description})
+    const repo = form.get('projectRepo').value;
+    const website = form.get('projectWebsite').value;
+    this.fstore.collection('users').doc<Item[]>(this.currentUser.value.uid).collection('projects').add({name, description, repo, website})
                 .then((docRef) => {
                   this.selectProject(this.projectsValue.map(proj => ({id: proj.id})).findIndex(obj => obj.id === docRef.id));
                   //this.router.navigate(['/dashboard/info'], {queryParams: {project: docRef.id}});
@@ -99,7 +101,9 @@ export class AuthService {
   editProject(form) {
     const name = form.get('projectName').value;
     const description = form.get('projectDescription').value;
-    this.fstore.collection('users').doc<Item[]>(this.currentUser.value.uid).collection('projects').doc(this.selectedId).update({name, description});
+    const repo = form.get('projectRepo').value;
+    const website = form.get('projectWebsite').value;
+    this.fstore.collection('users').doc<Item[]>(this.currentUser.value.uid).collection('projects').doc(this.selectedId).update({name, description, repo, website});
   }
   newLog(form) {
     const title = form.get('logTitle').value;

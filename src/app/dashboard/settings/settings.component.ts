@@ -18,9 +18,24 @@ export class SettingsComponent implements OnInit {
     return this.authService.selectedProject.description || '';
   }
 
+  get projectRepo() {
+    if (this.authService.selectedProject) {
+      return this.authService.selectedProject.repo || '';
+    }
+    return null;
+  }
+  get projectWebsite() {
+    if (this.authService.selectedProject) {
+      return this.authService.selectedProject.website || '';
+    }
+    return null;
+  }
+
   newForm = new FormGroup({
     projectName: new FormControl(this.projectName || ''),
-    projectDescription: new FormControl(this.projectDescription || '')
+    projectDescription: new FormControl(this.projectDescription || ''),
+    projectRepo: new FormControl(this.projectRepo || ''),
+    projectWebsite: new FormControl(this.projectWebsite || '')
   });
 
   onSubmit() {

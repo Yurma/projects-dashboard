@@ -24,6 +24,20 @@ export class InfoComponent implements OnInit {
     return '';
   }
 
+  get projectRepo() {
+    if (this.authService.selectedProject) {
+      return this.authService.selectedProject.repo || '';
+    }
+    return null;
+  }
+  get projectWebsite() {
+    if (this.authService.selectedProject) {
+      return this.authService.selectedProject.website || '';
+    }
+    return null;
+  }
+
+
   ngOnInit(): void {
   }
 

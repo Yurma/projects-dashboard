@@ -10,7 +10,9 @@ import {AuthService} from '../../auth.service';
 export class NewComponent implements OnInit {
   newForm = new FormGroup({
     projectName: new FormControl(''),
-    projectDescription: new FormControl('')
+    projectDescription: new FormControl(''),
+    projectRepo: new FormControl(''),
+    projectWebsite: new FormControl('')
   });
 
   constructor(public authService: AuthService) { }
