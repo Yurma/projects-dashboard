@@ -1,8 +1,13 @@
 <header class="header border-bottom border-black p-5 f4 --dark">
   <button (click)="toggleMenu()" class="header-item btn btn-icon text-white"><div class="gg-menu"></div></button>
-  <div class="header-item--full">Dashboard</div>
-  <div *ngIf="authService.isAuth">
-    <button (click)="authService.logout()" class="header-item btn btn-link">Logout</button>
+  <div class="header-item--full mx-1">
+    <select class="side-select" (change)="projectChange($event)" [value]="authService.selectedKey">
+      <option *ngIf="!authService.selectedId" value="select">-- SELECT --</option>
+      <option *ngFor="let project of authService.projectsValue; let i = index" [value]="i" [selected]="authService.selectedKey == i">{{project.name}}</option>
+    </select>
+  </div>
+  <div class="header-item" *ngIf="authService.isAuth">
+    <button class="btn btn-link" (click)="authService.logout()">Logout</button>
   </div>
 </header>
 <div class="wrapper">

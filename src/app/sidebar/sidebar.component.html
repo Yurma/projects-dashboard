@@ -1,9 +1,6 @@
 <div class="sidebar-container">
-  <button class="btn new-btn btn-squared side-card" (click)="newClick()">New</button>
-  <select class="side-select" (change)="projectChange($event)" [value]="authServices.selectedKey">
-    <option *ngIf="!authServices.selectedId" value="select">-- SELECT --</option>
-    <option *ngFor="let project of authServices.projectsValue; let i = index" [value]="i" [selected]="authServices.selectedKey == i">{{project.name}}</option>
-  </select>
+  <button class="btn new-btn btn-squared side-card" (click)="newClick()">New Project</button>
+  <hr class="mt-6">
   <div class="side-btn-group" *ngIf="authServices.isSelected">
     <button class="btn side-btn side-card" [routerLink]="['info']" routerLinkActive="current" queryParamsHandling="merge">
       Info

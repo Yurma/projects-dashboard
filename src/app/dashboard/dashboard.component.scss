@@ -4,6 +4,23 @@
   &.--dark {
     background: #161616;
   }
+  .side-select {
+    display: block;
+    font-size: 20px;
+    min-width: 180px;
+    max-width: 180px;
+    background: #545454;
+    border-color: #565656;
+    color: #ffffff;
+    border-radius: 2.25px;
+    text-align-last: center;
+    text-align: center;
+    cursor: pointer;
+    &:hover {
+      background: #565656;
+      border-color: #8a8a8a;
+    }
+  }
 }
 
 .wrapper {
