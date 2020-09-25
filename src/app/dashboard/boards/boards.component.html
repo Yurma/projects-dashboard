@@ -16,7 +16,7 @@
         <div cdkDrag [cdkDragData]="item" class="item flex-auto border m-2 mx-3" *ngFor="let item of list.items; let i = index">
           <div class="width-full">
             <div *ngIf="list.itemEdit !== i">
-              <div class="labels">
+              <div class="labels" *ngIf="item.labels.length > 0">
                 <span class="label" *ngFor="let label of item.labels">{{label}}</span>
               </div>
               <div class="content px-2">

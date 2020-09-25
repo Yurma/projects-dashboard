@@ -13,3 +13,17 @@ body {
   text-decoration: underline;
   color: #cbcbcb;
 }
+
+ul {
+  margin-left: 20px;
+  li {
+    margin-top: 2px;
+    ul {
+      display: inline;
+      list-style-type: none;
+      li {
+        display: inline;
+      }
+    }
+  }
+}

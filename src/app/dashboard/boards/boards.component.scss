@@ -54,19 +54,7 @@
     cursor: grab;
   }
 
-  ul {
-    margin-left: 20px;
-    li {
-      margin-top: 2px;
-      ul {
-        display: inline;
-        list-style-type: none;
-        li {
-          display: inline;
-        }
-      }
-    }
-  }
+
 
   textarea {
     width: 100%;
@@ -85,4 +73,7 @@
       transform: scale(.8);
     }
   }
+
+
 }
+

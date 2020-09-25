@@ -121,7 +121,7 @@ export class BoardsComponent implements OnInit {
   }
 
   stringToList(labels: string){
-    const list = labels.split(/(?:,| )+/);
+    const list = labels.split(/(?:,| )+/).filter(x => x !== '');
     return list;
   }
 

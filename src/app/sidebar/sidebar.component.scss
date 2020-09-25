@@ -2,6 +2,9 @@
 .sidebar-container {
   min-width: 355px;
   width: 355px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 
   .side-select {
     display: block;
@@ -29,6 +32,9 @@
 
   .side-btn-group {
     margin: 22px 0;
+    display: flex;
+    flex-direction: column;
+    flex: auto;
 
     @keyframes card-active {
       0%{
@@ -39,23 +45,23 @@
       }
     }
 
-    .side-btn:hover {
-      background: #2d2d2d;
-    }
+  }
 
-    .side-btn:active {
-      background: #1d1d1d;
-      animation: card-active 50ms ease;
-    }
+  .side-btn:hover {
+    background: #2d2d2d;
+  }
 
-    .side-btn {
-      border-radius: 0;
-      color: #ffffff;
-      &.current {
-        background: #373737;
-      }
-    }
+  .side-btn:active {
+    background: #1d1d1d;
+    animation: card-active 50ms ease;
+  }
 
+  .side-btn {
+    border-radius: 0;
+    color: #ffffff;
+    &.current {
+      background: #373737;
+    }
   }
 }
 
